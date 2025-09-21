@@ -12,5 +12,5 @@ def step_when_current_attempt(context, current_attempt):
 def step_then_expected_access(context, expected_access):
     actual_access = (context.current_attempt<=context.max_attempts)
     expected_access_bool = expected_access.lower() == 'true'
-    assert actual_access == expected_access_bool
+    assert actual_access == expected_access_bool # ==
 
