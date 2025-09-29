@@ -1,0 +1,7 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: noop
+        name: No-op pre-commit hook (заглушка)
+        entry: echo "Pre-commit noop hook running..." && exit 0
+        language: system
