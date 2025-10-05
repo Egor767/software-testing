@@ -15,12 +15,14 @@ class OrderService:
         self.producer = producer
         self.topic = topic
 
-    async def create_order(self, name: str, quantity: int):
-        new_order = OrderModel(name=name, quantity=quantity)
+    async def create_order(self, **kwargs):
+        new_order = OrderModel(**kwargs)
         self.session.add(new_order)
         await self.session.commit()
         await self.session.refresh(new_order)
-        logger.info(f"Created new order: oid={new_order.oid}, name={new_order.name}, quantity={new_order.quantity}")
+        logger.info(f"Created new order: oid={new_order.oid}, "
+                    f"name={new_order.name}, "
+                    f"quantity={new_order.quantity}")
 
         return new_order
 
@@ -42,8 +44,8 @@ class OrderService:
             "name": new_order.name,
             "quantity": new_order.quantity
         }
-        result = await self.producer.send(self.topic, json.dumps(event).encode("utf-8"))
-        logger.info(f"Send order to producer: {result}")
+        payload = json.dumps(event).encode("utf-8")
+        result = await self.producer.send(self.topic, payload)
+        logger.info(f"Send order to producer: topic={self.topic} result={result} payload={event}")
 
         return result
-

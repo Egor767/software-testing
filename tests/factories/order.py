@@ -1,10 +1,10 @@
 import factory
 import uuid
-from factory.alchemy import SQLAlchemyModelFactory
+from async_factory_boy.factory.sqlalchemy import AsyncSQLAlchemyFactory
 from app.models.order import OrderModel
 
 
-class OrderFactory(SQLAlchemyModelFactory):
+class OrderFactory(AsyncSQLAlchemyFactory):
     class Meta:
         model = OrderModel
         sqlalchemy_session = None

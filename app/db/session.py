@@ -1,5 +1,7 @@
 import logging
 from contextlib import asynccontextmanager
+
+from sqlalchemy import NullPool
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from app.models.order import Base
 from app.db.config import DbConfig
@@ -14,7 +16,7 @@ AsyncSessionLocal = None
 def init_engine():
     global cfg, engine, AsyncSessionLocal
     cfg = DbConfig()
-    engine = create_async_engine(cfg.create_url(), echo=True, future=True)
+    engine = create_async_engine(cfg.create_url(), echo=True, future=True, poolclass=NullPool)
     AsyncSessionLocal = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
     logger.info(f"Database engine initialized at {cfg.create_url()}")
 
