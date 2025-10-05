@@ -15,6 +15,14 @@ class NotificationService:
         await self.consumer.stop()
 
     async def run(self):
+        async for event in self.consumer.get_messages():
+            payload = event
+            oid = payload.get("oid")
+            name = payload.get("name")
+            quantity = payload.get("quantity")
+            logger.info(f"Received new order event: oid={oid}, name={name}, quantity={quantity}")
+
+    async def old_run(self):
         try:
             bootstrap = getattr(self.consumer, "bootstrap_servers", None)
             topics = getattr(self.consumer, "topics", None)
@@ -48,3 +56,4 @@ class NotificationService:
             quantity = payload.get("quantity")
 
             logger.info(f"Received new order event: oid={oid}, name={name}, quantity={quantity}")
+

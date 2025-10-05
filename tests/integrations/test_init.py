@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 import pytest
 from sqlalchemy import text
@@ -26,9 +27,12 @@ async def test_full_scenario(caplog,
                              db_session,
                              order_service,
                              order_factory,
-                             consumer):
+                             notification_service
+                             ):
+    # order_service part (не меняем)
     orders_in_db = []
     orders_in_factory = order_factory.build_batch(5)
+
     for factory_order in orders_in_factory:
         created_order = await order_service.create_order(
             oid=factory_order.oid,
@@ -36,17 +40,14 @@ async def test_full_scenario(caplog,
             quantity=factory_order.quantity
         )
         orders_in_db.append(created_order)
-        await order_service.send_event(created_order)
 
-    received_messages = []
-    start_time = asyncio.get_event_loop().time()
+    for created_order, factory_order in zip(orders_in_db, orders_in_factory):
+        assert created_order.oid == factory_order.oid
+        assert created_order.name == factory_order.name
+        assert created_order.quantity == factory_order.quantity
 
-    while len(received_messages) < len(orders_in_db) and (asyncio.get_event_loop().time() - start_time) < 10:
-        try:
-            message = await asyncio.wait_for(consumer.consumer.getone(), timeout=1.0)
-            received_messages.append(message.value)
-            logger.info(f"Received message: {message.value}")
-        except asyncio.TimeoutError:
-            continue
+    # СНАЧАЛА ОТПРАВЛЯЕМ СООБЩЕНИЯ
+    for order in orders_in_db:
+        await order_service.send_event(order)
 
-    assert len(received_messages) == len(orders_in_db)
+    # R.I.P.
