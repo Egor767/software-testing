@@ -47,10 +47,8 @@ async def test_full_scenario(caplog,
     # send messages
     for order in orders_in_db:
         await order_service.send_event(order)
-    print('AAAAAAAAAAAAAAAA')
-    print(f"Producer bootstrap: {order_service.producer.bootstrap_servers}")
-    print(f"Consumer bootstrap: {notification_service.consumer.bootstrap_servers}")
-    await asyncio.sleep(10)
+
+    await asyncio.sleep(1)
 
     try:
         await asyncio.wait_for(notification_service.run(), timeout=5)

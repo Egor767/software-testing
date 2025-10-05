@@ -40,40 +40,15 @@ async def setup_kafka_container():
         bootstrap_server = kafka.get_bootstrap_server()
         os.environ["KAFKA_BOOTSTRAP_SERVERS"] = bootstrap_server
 
-        # Ждем полной готовности Kafka: подключение + топик + GroupCoordinator
-        for attempt in range(30):
-            try:
-                admin = AIOKafkaAdminClient(bootstrap_servers=bootstrap_server)
-                await admin.start()
-
-                # создаем топик, если еще нет
-                topics = await admin.list_topics()
-                if "test_topic" not in topics:
-                    await admin.create_topics([
-                        NewTopic(name="test_topic", num_partitions=1, replication_factor=1)
-                    ])
-                await admin.close()
-
-                # проверяем Consumer (Coordinator должен быть доступен)
-                consumer = AIOKafkaConsumer(
-                    "test_topic",
-                    bootstrap_servers=bootstrap_server,
-                    group_id="test_group_check"
-                )
-                await consumer.start()
-                await consumer.stop()
-
-                print(f"✅ Kafka готова (bootstrap={bootstrap_server})")
-                break
-
-            except (KafkaConnectionError, GroupCoordinatorNotAvailableError) as e:
-                print(f"⏳ Kafka еще не готова ({type(e).__name__}: {e}), попытка {attempt + 1}/30")
-                await asyncio.sleep(2)
-            except Exception as e:
-                print(f"⚠️ Ошибка при проверке Kafka: {e}")
-                await asyncio.sleep(2)
-        else:
-            raise RuntimeError("❌ Kafka не запустилась за отведенное время")
+        admin = AIOKafkaAdminClient(bootstrap_servers=bootstrap_server)
+        await admin.start()
+        topics = await admin.list_topics()
+        topic: str = "test_topic"
+        if topic not in topics:
+            await admin.create_topics([
+                NewTopic(name=topic, num_partitions=1, replication_factor=1)
+            ])
+        await admin.close()
 
         yield
 
