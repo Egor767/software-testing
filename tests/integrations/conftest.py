@@ -1,4 +1,5 @@
 import os
+import uuid
 
 import pytest_asyncio
 from aiokafka import AIOKafkaConsumer
@@ -40,15 +41,37 @@ async def setup_kafka_container():
         bootstrap_server = kafka.get_bootstrap_server()
         os.environ["KAFKA_BOOTSTRAP_SERVERS"] = bootstrap_server
 
-        admin = AIOKafkaAdminClient(bootstrap_servers=bootstrap_server)
-        await admin.start()
-        topics = await admin.list_topics()
-        topic: str = "test_topic"
-        if topic not in topics:
-            await admin.create_topics([
-                NewTopic(name=topic, num_partitions=1, replication_factor=1)
-            ])
-        await admin.close()
+        for attempt in range(30):
+            try:
+                admin = AIOKafkaAdminClient(bootstrap_servers=bootstrap_server)
+                await admin.start()
+
+                topics = await admin.list_topics()
+                if "test_topic" not in topics:
+                    await admin.create_topics([
+                        NewTopic(name="test_topic", num_partitions=1, replication_factor=1)
+                    ])
+                await admin.close()
+
+                consumer = AIOKafkaConsumer(
+                    "test_topic",
+                    bootstrap_servers=bootstrap_server,
+                    group_id="test_group_check"
+                )
+                await consumer.start()
+                await consumer.stop()
+
+                print(f"Kafka is ready (bootstrap={bootstrap_server})")
+                break
+
+            except (KafkaConnectionError, GroupCoordinatorNotAvailableError) as e:
+                print(f"Kafka still not ready ({type(e).__name__}: {e}), try {attempt + 1}/30")
+                await asyncio.sleep(2)
+            except Exception as e:
+                print(f"Kafka exception: {e}")
+                await asyncio.sleep(2)
+        else:
+            raise RuntimeError("Kafka runtime is out")
 
         yield
 
@@ -76,12 +99,18 @@ async def order_service(db_session, producer):
 
 @pytest_asyncio.fixture(scope="function")
 async def consumer():
+    unique_group_id = f"test_group_{uuid.uuid4().hex[:8]}"
     consumer = KafkaConsumer(
         bootstrap_servers=os.getenv("KAFKA_BOOTSTRAP_SERVERS"),
         topics=['test_topic'],
-        group_id="test_group"
+        group_id=unique_group_id,
+        auto_offset_reset="earliest"
     )
     await consumer.start()
+
+    for topic in consumer.topics:
+        await consumer.consumer.seek_to_beginning()
+
     yield consumer
     await consumer.stop()
 
