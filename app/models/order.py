@@ -6,8 +6,9 @@ Base = declarative_base()
 
 
 class OrderModel(Base):
-    __tablename__ = 'Order'
+    __tablename__ = 'order'
 
     oid = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String(50), nullable=False)
     quantity = Column(Integer)
+

@@ -1,5 +1,9 @@
 import json
 import logging
+import uuid
+
+from sqlalchemy import delete
+
 from app.models.order import OrderModel
 
 logger = logging.getLogger("order-service")
@@ -20,10 +24,22 @@ class OrderService:
 
         return new_order
 
+    async def delete_all_orders(self):
+        stmt = delete(OrderModel)
+        await self.session.execute(stmt)
+        await self.session.commit()
+        logger.info("the Order table was cleaned")
+
+    async def delete_order(self, oid: uuid):
+        stmt = delete(OrderModel).where(OrderModel.oid == oid)
+        await self.session.execute(stmt)
+        await self.session.commit()
+        logger.info(f"the Order with id: {oid} was deleted")
+
     async def send_event(self, new_order: OrderModel):
         event = {
             "oid": str(new_order.oid),
-            "item_name": new_order.name,
+            "name": new_order.name,
             "quantity": new_order.quantity
         }
         result = await self.producer.send(self.topic, json.dumps(event).encode("utf-8"))
