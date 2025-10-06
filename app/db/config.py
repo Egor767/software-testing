@@ -11,6 +11,5 @@ class DbConfig:
 
     def create_url(self):
         url = f"postgresql+asyncpg://{self.username}:{self.password}@{self.host}:{self.port}/{self.db_name}"
-        # os.environ["DB_CONN"] = url
         return url
 

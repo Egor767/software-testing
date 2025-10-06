@@ -1,5 +1,5 @@
-from aiokafka import AIOKafkaProducer
 import logging
+from aiokafka import AIOKafkaProducer
 
 logger = logging.getLogger("kafka-producer")
 

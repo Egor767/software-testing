@@ -1,5 +1,4 @@
 import logging
-from contextlib import asynccontextmanager
 
 from sqlalchemy import NullPool
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker

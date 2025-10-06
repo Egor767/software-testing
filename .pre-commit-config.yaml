@@ -1,7 +1,9 @@
 repos:
 -   repo: local
     hooks:
-    -   id: noop
-        name: No-op pre-commit hook (заглушка)
-        entry: echo "Pre-commit noop hook running..." && exit 0
+      - id: pytest
+        name: Run pytest
+        entry: uv run pytest --cache-clear
         language: system
+        pass_filenames: false
+        stages: [pre-push]

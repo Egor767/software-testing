@@ -1,6 +1,4 @@
 import asyncio
-import json
-
 import pytest
 from sqlalchemy import text
 import logging
@@ -29,7 +27,7 @@ async def test_full_scenario(caplog,
                              order_factory,
                              notification_service
                              ):
-    # order_service part (не меняем)
+    # order_service part
     orders_in_db = []
     orders_in_factory = order_factory.build_batch(5)
 
@@ -46,8 +44,25 @@ async def test_full_scenario(caplog,
         assert created_order.name == factory_order.name
         assert created_order.quantity == factory_order.quantity
 
-    # СНАЧАЛА ОТПРАВЛЯЕМ СООБЩЕНИЯ
+    # send
     for order in orders_in_db:
         await order_service.send_event(order)
 
-    # R.I.P.
+    received_messages = []
+    start_time = asyncio.get_event_loop().time()
+
+    while (asyncio.get_event_loop().time() - start_time) < 10:
+        try:
+            message = await asyncio.wait_for(notification_service.consumer.consumer.getone(), timeout=1.0)
+            received_messages.append(message.value)
+            logger.info(f"Received message: {message.value}")
+        except asyncio.TimeoutError:
+            continue
+
+    assert len(received_messages) == len(orders_in_db)
+
+    for created_order, received_message in zip(orders_in_db, received_messages):
+        assert str(created_order.oid) == received_message.get('oid')
+        assert created_order.name == received_message.get('name')
+        assert created_order.quantity == received_message.get('quantity')
+

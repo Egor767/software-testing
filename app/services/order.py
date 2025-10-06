@@ -3,7 +3,6 @@ import logging
 import uuid
 
 from sqlalchemy import delete
-
 from app.models.order import OrderModel
 
 logger = logging.getLogger("order-service")

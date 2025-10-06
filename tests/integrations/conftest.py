@@ -2,8 +2,6 @@ import os
 import uuid
 
 import pytest_asyncio
-from aiokafka import AIOKafkaConsumer
-from aiokafka.errors import KafkaConnectionError, GroupCoordinatorNotAvailableError
 from testcontainers.postgres import PostgresContainer
 from testcontainers.kafka import KafkaContainer
 from app.db.session import init_engine, create_tables, drop_tables, get_db_session
@@ -13,8 +11,6 @@ from app.services.notification import NotificationService
 from app.services.order import OrderService
 from tests.factories.order import OrderFactory
 from pytest_factoryboy import register
-from aiokafka.admin import AIOKafkaAdminClient, NewTopic
-import asyncio
 
 register(OrderFactory)
 
@@ -40,38 +36,6 @@ async def setup_kafka_container():
     with KafkaContainer().with_kraft() as kafka:
         bootstrap_server = kafka.get_bootstrap_server()
         os.environ["KAFKA_BOOTSTRAP_SERVERS"] = bootstrap_server
-
-        for attempt in range(30):
-            try:
-                admin = AIOKafkaAdminClient(bootstrap_servers=bootstrap_server)
-                await admin.start()
-
-                topics = await admin.list_topics()
-                if "test_topic" not in topics:
-                    await admin.create_topics([
-                        NewTopic(name="test_topic", num_partitions=1, replication_factor=1)
-                    ])
-                await admin.close()
-
-                consumer = AIOKafkaConsumer(
-                    "test_topic",
-                    bootstrap_servers=bootstrap_server,
-                    group_id="test_group_check"
-                )
-                await consumer.start()
-                await consumer.stop()
-
-                print(f"Kafka is ready (bootstrap={bootstrap_server})")
-                break
-
-            except (KafkaConnectionError, GroupCoordinatorNotAvailableError) as e:
-                print(f"Kafka still not ready ({type(e).__name__}: {e}), try {attempt + 1}/30")
-                await asyncio.sleep(2)
-            except Exception as e:
-                print(f"Kafka exception: {e}")
-                await asyncio.sleep(2)
-        else:
-            raise RuntimeError("Kafka runtime is out")
 
         yield
 
@@ -106,11 +70,8 @@ async def consumer():
         group_id=unique_group_id,
         auto_offset_reset="earliest"
     )
+
     await consumer.start()
-
-    for topic in consumer.topics:
-        await consumer.consumer.seek_to_beginning()
-
     yield consumer
     await consumer.stop()
 
