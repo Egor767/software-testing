@@ -1,7 +1,9 @@
 import asyncio
 import pytest
-from sqlalchemy import text
+from sqlalchemy import text, select
 import logging
+
+from app.models.order import OrderModel
 
 logger = logging.getLogger("test-logger")
 
@@ -27,27 +29,32 @@ async def test_full_scenario(caplog,
                              order_factory,
                              notification_service
                              ):
-    # order_service part
-    orders_in_db = []
+    # order_service (create orders)
     orders_in_factory = order_factory.build_batch(5)
 
     for factory_order in orders_in_factory:
-        created_order = await order_service.create_order(
+        await order_service.create_order(
             oid=factory_order.oid,
             name=factory_order.name,
             quantity=factory_order.quantity
         )
-        orders_in_db.append(created_order)
 
-    for created_order, factory_order in zip(orders_in_db, orders_in_factory):
-        assert created_order.oid == factory_order.oid
-        assert created_order.name == factory_order.name
-        assert created_order.quantity == factory_order.quantity
+    # check orders in db
+    stmt = select(OrderModel)
+    result = await db_session.execute(stmt)
+    orders_in_db = result.scalars().all()
 
-    # send
+    assert len(orders_in_db) == len(orders_in_db)
+    for created_order, db_order in zip(orders_in_db, orders_in_db):
+        assert created_order.oid == db_order.oid
+        assert created_order.name == db_order.name
+        assert created_order.quantity == db_order.quantity
+
+    # send msgs to consumer
     for order in orders_in_db:
         await order_service.send_event(order)
 
+    # get msgs from consumer
     received_messages = []
     start_time = asyncio.get_event_loop().time()
 
@@ -59,8 +66,8 @@ async def test_full_scenario(caplog,
         except asyncio.TimeoutError:
             continue
 
+    # check msgs from consumer
     assert len(received_messages) == len(orders_in_db)
-
     for created_order, received_message in zip(orders_in_db, received_messages):
         assert str(created_order.oid) == received_message.get('oid')
         assert created_order.name == received_message.get('name')
