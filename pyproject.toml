@@ -3,9 +3,7 @@ name = "software-testing"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.14"
 dependencies = [
-    "fastapi>=0.121.1",
-    "pytest>=9.0.0",
-    "streamlit>=1.51.0",
+    "pre-commit>=4.4.0",
 ]
