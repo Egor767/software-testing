@@ -1,10 +1,9 @@
-from contextlib import asynccontextmanager
 from typing import AsyncGenerator, Annotated, TYPE_CHECKING
 
 from fastapi import Depends
 
-from core.models import db_helper
-from core.slug import SlugMaker
+from backend.app.core.models import db_helper
+from backend.app.core.slug import SlugMaker
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession

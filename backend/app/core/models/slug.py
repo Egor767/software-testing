@@ -2,7 +2,7 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .base import Base
-from ..slug_size import slug_size
+from backend.app.core.slug_size import slug_size
 
 
 class Slug(Base):

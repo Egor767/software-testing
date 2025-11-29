@@ -4,9 +4,9 @@ import uvicorn
 from fastapi import FastAPI
 from starlette.responses import RedirectResponse
 
-from api import api_router
-from core.models import Base
-from core.models import db_helper
+from backend.app.api import api_router
+from backend.app.core.models import Base
+from backend.app.core.models import db_helper
 
 
 @asynccontextmanager
@@ -38,7 +38,7 @@ app.include_router(api_router)
 
 if __name__ == "__main__":
     uvicorn.run(
-        app="main:app",
+        app="backend.main:app",
         host="localhost",
         port=8080,
         reload=True,

@@ -6,9 +6,9 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy import insert, select
 
-from core.models import Slug
-from core.schemas import SlugCreate, SlugRead, SlugBase
-from core.slug_size import slug_size
+from backend.app.core.models import Slug
+from backend.app.core.schemas import SlugCreate, SlugRead
+from backend.app.core.slug_size import slug_size
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession

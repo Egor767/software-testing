@@ -3,11 +3,11 @@ from typing import Annotated, TYPE_CHECKING
 from fastapi import APIRouter, Depends
 from starlette.responses import RedirectResponse
 
-from core.dependencies import get_slug_maker
-from core.schemas import SlugRead, SlugCreate, SlugBase
+from backend.app.core.dependencies import get_slug_maker
+from backend.app.core.schemas import SlugRead, SlugCreate, SlugBase
 
 if TYPE_CHECKING:
-    from core.slug import SlugMaker
+    from backend.app.core.slug import SlugMaker
 
 router = APIRouter(
     prefix="/api",
