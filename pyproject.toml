@@ -5,6 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "black>=25.11.0",
+    "flask>=3.1.2",
     "locust>=2.42.1",
     "pre-commit>=4.3.0",
     "uuid>=1.30",
