@@ -10,6 +10,7 @@ long_url = st.text_input(
     help="Вставьте URL для сокращения",
 )
 
+
 if st.button("Сократить", type="primary", use_container_width=True):
     if long_url:
         try:
