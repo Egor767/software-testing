@@ -68,6 +68,7 @@ Thumbs.db
 .ipynb_checkpoints
 
 # PyCharm
+.idea
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/dictionaries
