@@ -52,6 +52,5 @@ export default function () {
       'POST /posts status is 201': (r) => r.status === 201,
     });
   }
-
   sleep(1);
 }
