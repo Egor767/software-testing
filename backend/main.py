@@ -1,13 +1,15 @@
+import os
+import sys
 from contextlib import asynccontextmanager
 
 import uvicorn
 from fastapi import FastAPI
 from starlette.responses import RedirectResponse
 
-from backend.app.api import api_router
-from backend.app.core.models import Base
-from backend.app.core.models import db_helper
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from backend.app.api import api_router
+from backend.app.core.models import Base, db_helper
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -15,30 +17,25 @@ async def lifespan(app: FastAPI):
         await conn.run_sync(Base.metadata.create_all)
     yield
 
-
 app = FastAPI(
     title="Short URL Maker",
     version="1.0",
     lifespan=lifespan,
 )
 
-
 @app.get("/")
 async def root():
     return RedirectResponse(url="/docs")
-
 
 @app.get("/hello")
 async def hello():
     return "Hello!"
 
-
 app.include_router(api_router)
-
 
 if __name__ == "__main__":
     uvicorn.run(
-        app="backend.main:app",
+        f"{__name__}:app",
         host="localhost",
         port=8080,
         reload=True,

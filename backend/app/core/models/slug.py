@@ -11,7 +11,7 @@ class Slug(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
 
     long_url: Mapped[str] = mapped_column(
-        String(200),
+        String(),
         unique=True,
         nullable=False,
     )

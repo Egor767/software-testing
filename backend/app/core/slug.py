@@ -13,7 +13,7 @@ from backend.app.core.slug_size import slug_size
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
 
-logger = logging.getLogger("uvicorn.access")
+logger = logging.getLogger("SlugMaker-Logger")
 
 
 @asynccontextmanager
@@ -51,6 +51,8 @@ class SlugMaker:
         if not created_slug:
             raise ValueError("Creation failed")
 
+        logger.info("RETURNING SLUG = %r", created_slug)
+
         return await self.make_short_url(created_slug)
 
     @staticmethod
@@ -78,5 +80,5 @@ class SlugMaker:
         if not db_slug:
             raise HTTPException(status_code=404, detail="Slug not found")
 
-        logger.info("RETURNING LONG_URL = %s", db_slug.long_url)
+        logger.info("RETURNING LONG_URL = %r", db_slug.long_url)
         return db_slug.long_url
