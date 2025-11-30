@@ -2,6 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import AsyncMock, patch
 from faker import Faker
+from pydantic import HttpUrl
 
 from backend.main import app
 from backend.app.api.slug import get_slug_maker
@@ -13,6 +14,11 @@ from backend.app.core.schemas import SlugCreate
 @pytest.fixture(scope="session")
 def fake():
     return Faker()
+
+
+@pytest.fixture()
+def api_url():
+    return "http://localhost:8080"
 
 
 @pytest.fixture
@@ -42,21 +48,26 @@ def mock_slug_maker():
 
 @pytest.fixture
 def slug_create_data(fake):
-    return SlugCreate(long_url=fake.url())
+    url = HttpUrl(fake.url())
+    return SlugCreate(long_url=url)
 
 
 @pytest.fixture
-def slug_read_data(fake):
-    short_code = fake.pystr(min_chars=slug_size, max_chars=slug_size)
-    return SlugRead(slug=f"http://localhost:8080/api/s/{short_code}")
+def short_code(fake):
+    return fake.pystr(min_chars=slug_size, max_chars=slug_size)
 
 
 @pytest.fixture
-def slug_test_data(fake):
+def slug_read_data(fake, api_url, short_code):
+    return SlugRead(slug=f"{api_url}/api/s/{short_code}")
 
+
+@pytest.fixture
+def slug_test_data(fake, short_code):
+    url = HttpUrl(fake.url())
     return {
-        "long_url": fake.url(),
-        "slug_code": fake.pystr(min_chars=slug_size, max_chars=slug_size),
+        "long_url": str(url),
+        "slug_code": short_code,
     }
 
 

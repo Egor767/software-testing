@@ -5,7 +5,9 @@ import unittest
 
 class TestProviderPacts(unittest.TestCase):
     def test_provider_against_consumer_contracts(self):
-        pact_file = str(Path(__file__).parent.parent.parent / "pacts" / "frontend-backend.json")
+        pact_file = str(
+            Path(__file__).parent.parent.parent / "pacts" / "frontend-backend.json"
+        )
         verifier = (
             Verifier("backend")
             .add_source(pact_file)

@@ -32,7 +32,7 @@ class SlugMaker:
         self.prefix = "http://localhost:8080/api/s/"
 
     async def make_slug(self, slug_create_data: SlugCreate) -> SlugRead:
-        stmt = select(Slug).where(Slug.long_url == slug_create_data.long_url)
+        stmt = select(Slug).where(Slug.long_url == str(slug_create_data.long_url))
         result = await self.session.execute(stmt)
         existing_slug = result.scalar_one_or_none()
 
@@ -42,10 +42,11 @@ class SlugMaker:
                 detail="Already Exist",
             )
 
-        generated_slug = await self.generate_slug(slug_create_data.long_url)
+        generated_slug = await self.generate_slug(str(slug_create_data.long_url))
 
         slug_data = slug_create_data.model_dump()
         slug_data["slug"] = generated_slug
+        slug_data["long_url"] = str(slug_data["long_url"])
 
         created_slug = await self.save_slug_to_db(slug_data)
         if not created_slug:

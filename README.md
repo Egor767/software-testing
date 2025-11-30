@@ -10,6 +10,13 @@ from root dir:
     ```
 
 3. tests:
+
+    frontend:
     ```bash
-      uv run pytest --cov=backend --cov-report=term-missing --cov-fail-under=75 --cache-clear
+      uv run pytest frontend/tests/ --cache-clear
     ```
+   backend:
+    ```bash
+      uv run pytest backend/tests/ --cov=backend --cov-report=term-missing --cov-fail-under=75 --cache-clear
+    ```
+

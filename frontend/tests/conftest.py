@@ -2,6 +2,7 @@ import pytest
 from faker import Faker
 from pathlib import Path
 from pact import Pact
+from playwright.sync_api import Page
 
 SLUG_LEN = 10
 
@@ -19,6 +20,22 @@ def random_long_url(faker):
 @pytest.fixture
 def slug_len():
     return SLUG_LEN
+
+
+@pytest.fixture
+def api_url():
+    return "http://localhost:8080"
+
+
+@pytest.fixture
+def streamlit_url():
+    return "http://localhost:8501"
+
+
+@pytest.fixture(scope="function")
+def setup_page(page: Page):
+    page.set_viewport_size({"width": 1280, "height": 720})
+    yield page
 
 
 @pytest.fixture(scope="session")
