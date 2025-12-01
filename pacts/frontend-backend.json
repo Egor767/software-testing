@@ -14,7 +14,7 @@
       "request": {
         "body": {
           "content": {
-            "long_url": "https://www.brennan.com/"
+            "long_url": "https://reed.info/"
           },
           "contentType": "application/json",
           "encoded": false
