@@ -14,7 +14,7 @@
       "request": {
         "body": {
           "content": {
-            "long_url": "http://www.valdez-taylor.com/"
+            "long_url": "https://www.brennan.com/"
           },
           "contentType": "application/json",
           "encoded": false
