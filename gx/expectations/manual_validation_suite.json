@@ -1,0 +1,56 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "manual_validation_suite",
+  "expectations": [
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "amount"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "amount",
+        "min_value": 0,
+        "strict_min": true
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_match_regex",
+      "kwargs": {
+        "column": "user_email",
+        "regex": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_kl_divergence_to_be_less_than",
+      "kwargs": {
+        "column": "category",
+        "partition_object": {
+          "values": [
+            "Electronics",
+            "Home",
+            "Books",
+            "Clothing"
+          ],
+          "weights": [
+            0.269,
+            0.254,
+            0.243,
+            0.234
+          ]
+        },
+        "threshold": 0.3
+      },
+      "meta": {}
+    }
+  ],
+  "ge_cloud_id": null,
+  "meta": {
+    "great_expectations_version": "0.18.21"
+  }
+}
