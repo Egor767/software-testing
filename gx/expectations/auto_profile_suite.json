@@ -23,11 +23,11 @@
       "expectation_type": "expect_table_columns_to_match_set",
       "kwargs": {
         "column_set": [
-          "date",
-          "category",
+          "amount",
           "user_email",
           "transaction_id",
-          "amount"
+          "date",
+          "category"
         ],
         "exact_match": null
       },
@@ -377,7 +377,7 @@
       "kwargs": {
         "column": "date",
         "mostly": 1.0,
-        "regex": "[A-Za-z0-9\\.,;:!?()\\\"'%\\-]+"
+        "regex": "(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})(?:.(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})){3}"
       },
       "meta": {
         "profiler_details": {
@@ -497,7 +497,7 @@
       "kwargs": {
         "column": "user_email",
         "mostly": 1.0,
-        "regex": "[A-Za-z0-9\\.,;:!?()\\\"'%\\-]+"
+        "regex": "-?\\d+"
       },
       "meta": {
         "profiler_details": {
@@ -523,10 +523,10 @@
         "column": "category",
         "mostly": 1.0,
         "value_set": [
-          "Home",
+          "Books",
           "Electronics",
           "Clothing",
-          "Books"
+          "Home"
         ]
       },
       "meta": {
@@ -592,7 +592,7 @@
   "meta": {
     "citations": [
       {
-        "citation_date": "2025-12-23T11:08:09.278550Z",
+        "citation_date": "2025-12-25T10:32:13.991126Z",
         "comment": "Created by effective Rule-Based Profiler of OnboardingDataAssistant with the configuration included.\n"
       }
     ],
