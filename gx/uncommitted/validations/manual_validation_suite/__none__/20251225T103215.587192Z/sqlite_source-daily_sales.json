@@ -1,0 +1,262 @@
+{
+  "evaluation_parameters": {},
+  "meta": {
+    "active_batch_definition": {
+      "batch_identifiers": {},
+      "data_asset_name": "daily_sales",
+      "data_connector_name": "fluent",
+      "datasource_name": "sqlite_source"
+    },
+    "batch_markers": {
+      "ge_load_time": "20251225T103215.596091Z"
+    },
+    "batch_spec": {
+      "batch_identifiers": {},
+      "data_asset_name": "daily_sales",
+      "schema_name": null,
+      "table_name": "daily_sales",
+      "type": "table"
+    },
+    "checkpoint_id": null,
+    "checkpoint_name": "sql_validation_checkpoint",
+    "expectation_suite_name": "manual_validation_suite",
+    "great_expectations_version": "0.18.21",
+    "run_id": {
+      "run_name": null,
+      "run_time": "2025-12-25T16:32:15.587192+06:00"
+    },
+    "validation_id": null,
+    "validation_time": "20251225T103215.599113Z"
+  },
+  "results": [
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "sqlite_source-daily_sales",
+          "column": "amount"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1500,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "sqlite_source-daily_sales",
+          "column": "amount",
+          "min_value": 0,
+          "strict_min": true
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1500,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [
+          {
+            "count": 1,
+            "value": -487.92
+          },
+          {
+            "count": 1,
+            "value": -469.6
+          },
+          {
+            "count": 1,
+            "value": -427.75
+          },
+          {
+            "count": 1,
+            "value": -410.32
+          },
+          {
+            "count": 1,
+            "value": -198.94
+          },
+          {
+            "count": 1,
+            "value": -174.29
+          },
+          {
+            "count": 1,
+            "value": -122.39
+          },
+          {
+            "count": 1,
+            "value": -113.29
+          },
+          {
+            "count": 1,
+            "value": -51.7
+          },
+          {
+            "count": 1,
+            "value": -44.81
+          },
+          {
+            "count": 1,
+            "value": -42.84
+          }
+        ],
+        "partial_unexpected_list": [
+          -174.29,
+          -42.84,
+          -487.92,
+          -410.32,
+          -427.75,
+          -469.6,
+          -51.7,
+          -198.94,
+          -44.81,
+          -113.29,
+          -122.39
+        ],
+        "unexpected_count": 11,
+        "unexpected_percent": 0.7333333333333333,
+        "unexpected_percent_nonmissing": 0.7333333333333333,
+        "unexpected_percent_total": 0.7333333333333333
+      },
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_match_regex",
+        "kwargs": {
+          "batch_id": "sqlite_source-daily_sales",
+          "column": "user_email",
+          "regex": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1500,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [
+          {
+            "count": 11,
+            "value": "invalid_email_format"
+          }
+        ],
+        "partial_unexpected_list": [
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format",
+          "invalid_email_format"
+        ],
+        "unexpected_count": 11,
+        "unexpected_percent": 0.7333333333333333,
+        "unexpected_percent_nonmissing": 0.7333333333333333,
+        "unexpected_percent_total": 0.7333333333333333
+      },
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_kl_divergence_to_be_less_than",
+        "kwargs": {
+          "batch_id": "sqlite_source-daily_sales",
+          "column": "category",
+          "partition_object": {
+            "values": [
+              "Electronics",
+              "Home",
+              "Books",
+              "Clothing"
+            ],
+            "weights": [
+              0.269,
+              0.254,
+              0.243,
+              0.234
+            ]
+          },
+          "threshold": 0.3
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "details": {
+          "expected_partition": {
+            "values": [
+              "Electronics",
+              "Home",
+              "Books",
+              "Clothing"
+            ],
+            "weights": [
+              0.269,
+              0.254,
+              0.243,
+              0.234
+            ]
+          },
+          "observed_partition": {
+            "values": [
+              "Electronics",
+              "Home",
+              "Books",
+              "Clothing"
+            ],
+            "weights": [
+              0.6984553391537945,
+              0.10342511752854265,
+              0.09335124244459368,
+              0.10476830087306917
+            ]
+          }
+        },
+        "observed_value": 0.40001492386812326
+      },
+      "success": false
+    }
+  ],
+  "statistics": {
+    "evaluated_expectations": 4,
+    "success_percent": 25.0,
+    "successful_expectations": 1,
+    "unsuccessful_expectations": 3
+  },
+  "success": false
+}

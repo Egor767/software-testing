@@ -1,0 +1,1071 @@
+{
+  "evaluation_parameters": {},
+  "meta": {
+    "active_batch_definition": {
+      "batch_identifiers": {},
+      "data_asset_name": "reference_data",
+      "data_connector_name": "fluent",
+      "datasource_name": "pandas_source"
+    },
+    "batch_markers": {
+      "ge_load_time": "20251225T103214.098900Z",
+      "pandas_data_fingerprint": "f846a0ebb97884ab03bca3107e039ea9"
+    },
+    "batch_spec": {
+      "reader_method": "read_csv",
+      "reader_options": {
+        "filepath_or_buffer": "data\\historical_sales.csv"
+      }
+    },
+    "checkpoint_id": null,
+    "checkpoint_name": "auto_profile_checkpoint",
+    "expectation_suite_name": "auto_profile_suite",
+    "great_expectations_version": "0.18.21",
+    "run_id": {
+      "run_name": null,
+      "run_time": "2025-12-25T16:32:14.081391+06:00"
+    },
+    "validation_id": null,
+    "validation_time": "20251225T103214.106662Z"
+  },
+  "results": [
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_table_row_count_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "max_value": 1000,
+          "min_value": 1000
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {},
+              "metric_name": "table.row_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 1000
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_table_columns_to_match_set",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column_set": [
+            "amount",
+            "user_email",
+            "transaction_id",
+            "date",
+            "category"
+          ],
+          "exact_match": null
+        },
+        "meta": {
+          "profiler_details": {
+            "success_ratio": 1.0
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": [
+          "transaction_id",
+          "date",
+          "category",
+          "amount",
+          "user_email"
+        ]
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_unique",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "date"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "date"
+              },
+              "metric_name": "column_values.unique.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "date"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "date"
+              },
+              "metric_name": "column_values.nonnull.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_value_lengths_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "date",
+          "max_value": 26,
+          "min_value": 26,
+          "mostly": 1.0,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "column_max_length_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "date"
+                },
+                "metric_name": "column_values.length.max",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            },
+            "column_min_length_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "date"
+                },
+                "metric_name": "column_values.length.min",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            }
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_match_regex",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "date",
+          "mostly": 1.0,
+          "regex": "(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})(?:.(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})){3}"
+        },
+        "meta": {
+          "profiler_details": {
+            "evaluated_regexes": {
+              "(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})(?:.(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})){3}": 1.0,
+              "-?\\d+": 1.0,
+              "-?\\d+(?:\\.\\d*)?": 1.0,
+              "<\\/?(?:p|a|b|img)(?: \\/)?>": 0.0,
+              "[A-Za-z0-9\\.,;:!?()\\\"'%\\-]+": 1.0,
+              "\\b[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}-[0-5][0-9a-fA-F]{3}-[089ab][0-9a-fA-F]{3}-\\b[0-9a-fA-F]{12}\\b ": 0.0,
+              "\\d+": 1.0,
+              "\\s+$": 0.0,
+              "^\\s+": 0.0,
+              "https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,255}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9@:%_\\+.~#()?&//=]*)": 0.0
+            },
+            "success_ratio": 1.0
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_unique",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "user_email"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "user_email"
+              },
+              "metric_name": "column_values.unique.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "user_email"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "user_email"
+              },
+              "metric_name": "column_values.nonnull.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_value_lengths_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "user_email",
+          "max_value": 16,
+          "min_value": 14,
+          "mostly": 1.0,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "column_max_length_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "user_email"
+                },
+                "metric_name": "column_values.length.max",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            },
+            "column_min_length_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "user_email"
+                },
+                "metric_name": "column_values.length.min",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            }
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_match_regex",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "user_email",
+          "mostly": 1.0,
+          "regex": "-?\\d+"
+        },
+        "meta": {
+          "profiler_details": {
+            "evaluated_regexes": {
+              "(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})(?:.(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})){3}": 0.0,
+              "-?\\d+": 1.0,
+              "-?\\d+(?:\\.\\d*)?": 1.0,
+              "<\\/?(?:p|a|b|img)(?: \\/)?>": 0.0,
+              "[A-Za-z0-9\\.,;:!?()\\\"'%\\-]+": 1.0,
+              "\\b[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}-[0-5][0-9a-fA-F]{3}-[089ab][0-9a-fA-F]{3}-\\b[0-9a-fA-F]{12}\\b ": 0.0,
+              "\\d+": 1.0,
+              "\\s+$": 0.0,
+              "^\\s+": 0.0,
+              "https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,255}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9@:%_\\+.~#()?&//=]*)": 0.0
+            },
+            "success_ratio": 1.0
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "category"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "category"
+              },
+              "metric_name": "column_values.nonnull.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_value_lengths_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "category",
+          "max_value": 11,
+          "min_value": 4,
+          "mostly": 1.0,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "column_max_length_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "category"
+                },
+                "metric_name": "column_values.length.max",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            },
+            "column_min_length_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "category"
+                },
+                "metric_name": "column_values.length.min",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            }
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_match_regex",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "category",
+          "mostly": 1.0,
+          "regex": "[A-Za-z0-9\\.,;:!?()\\\"'%\\-]+"
+        },
+        "meta": {
+          "profiler_details": {
+            "evaluated_regexes": {
+              "(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})(?:.(?:25[0-5]|2[0-4]\\d|[01]\\d{2}|\\d{1,2})){3}": 0.0,
+              "-?\\d+": 0.0,
+              "-?\\d+(?:\\.\\d*)?": 0.0,
+              "<\\/?(?:p|a|b|img)(?: \\/)?>": 0.0,
+              "[A-Za-z0-9\\.,;:!?()\\\"'%\\-]+": 1.0,
+              "\\b[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}-[0-5][0-9a-fA-F]{3}-[089ab][0-9a-fA-F]{3}-\\b[0-9a-fA-F]{12}\\b ": 0.0,
+              "\\d+": 0.0,
+              "\\s+$": 0.0,
+              "^\\s+": 0.0,
+              "https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,255}\\.[a-z]{2,6}\\b(?:[-a-zA-Z0-9@:%_\\+.~#()?&//=]*)": 0.0
+            },
+            "success_ratio": 1.0
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_in_set",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "category",
+          "mostly": 1.0,
+          "value_set": [
+            "Books",
+            "Electronics",
+            "Clothing",
+            "Home"
+          ]
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "category"
+              },
+              "metric_name": "column.distinct_values",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1,
+            "parse_strings_as_datetimes": false
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_unique_value_count_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "category",
+          "max_value": 4,
+          "min_value": 4,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "category"
+              },
+              "metric_name": "column.distinct_values.count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 4
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_proportion_of_unique_values_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "category",
+          "max_value": 0.004,
+          "min_value": 0.004,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "category"
+              },
+              "metric_name": "column.unique_proportion",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 0.004
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "amount"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "amount"
+              },
+              "metric_name": "column_values.nonnull.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_min_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "amount",
+          "max_value": 11.58,
+          "min_value": 11.58,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "amount"
+              },
+              "metric_name": "column.min",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 11.58
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_max_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "amount",
+          "max_value": 499.71,
+          "min_value": 499.71,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "amount"
+              },
+              "metric_name": "column.max",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 499.71
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "amount",
+          "max_value": 499.71,
+          "min_value": 11.58,
+          "mostly": 1.0,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "column_max_values_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "amount"
+                },
+                "metric_name": "column.max",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            },
+            "column_min_values_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "amount"
+                },
+                "metric_name": "column.min",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            }
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 1000,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_quantile_values_to_be_between",
+        "kwargs": {
+          "allow_relative_error": false,
+          "batch_id": "pandas_source-reference_data",
+          "column": "amount",
+          "quantile_ranges": {
+            "quantiles": [
+              0.25,
+              0.5,
+              0.75
+            ],
+            "value_ranges": [
+              [
+                128.19,
+                128.19
+              ],
+              [
+                264.34,
+                264.34
+              ],
+              [
+                382.54,
+                382.54
+              ]
+            ]
+          }
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "amount"
+              },
+              "metric_name": "column.quantile_values",
+              "metric_value_kwargs": {
+                "allow_relative_error": false,
+                "quantiles": [
+                  0.25,
+                  0.5,
+                  0.75
+                ]
+              }
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "details": {
+          "success_details": [
+            true,
+            true,
+            true
+          ]
+        },
+        "observed_value": {
+          "quantiles": [
+            0.25,
+            0.5,
+            0.75
+          ],
+          "values": [
+            128.19,
+            264.34,
+            382.54
+          ]
+        }
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_median_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "amount",
+          "max_value": 264.17999999999995,
+          "min_value": 264.17999999999995,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "amount"
+              },
+              "metric_name": "column.median",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 264.17999999999995
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_mean_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "amount",
+          "max_value": 258.43839,
+          "min_value": 258.43839,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "amount"
+              },
+              "metric_name": "column.mean",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 258.43839
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_stdev_to_be_between",
+        "kwargs": {
+          "batch_id": "pandas_source-reference_data",
+          "column": "amount",
+          "max_value": 143.17297773554046,
+          "min_value": 143.17297773554046,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "amount"
+              },
+              "metric_name": "column.standard_deviation",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 143.17297773554046
+      },
+      "success": true
+    }
+  ],
+  "statistics": {
+    "evaluated_expectations": 24,
+    "success_percent": 100.0,
+    "successful_expectations": 24,
+    "unsuccessful_expectations": 0
+  },
+  "success": true
+}
